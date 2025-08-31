@@ -144,6 +144,73 @@ button.card { border: none; color: inherit; }
 .icon { width: 18px; height: 18px; display: block; }
 /* optional hard force */
 .icon * { stroke: currentColor; }
+/* === HERO === */
+.hero{
+  position: relative;
+  min-height: 52vh;            /* desktop height */
+  background: #000 url('/assets/img/hero.jpg') center/cover no-repeat;
+  display: grid;
+  grid-template-rows: 1fr auto;
+}
+
+/* subtle top overlay + unit tag */
+.hero-overlay{
+  position: relative;
+  min-height: 40vh;
+  background: linear-gradient(to bottom, rgba(0,0,0,.25), rgba(0,0,0,.0) 60%, rgba(0,0,0,.45));
+  display:flex; align-items:flex-end; justify-content:flex-end;
+  padding: 16px;
+}
+.unit-tag{
+  color:#fff; font-style: italic; font-size:14px; opacity:.9;
+}
+
+/* white welcome card */
+.welcome-wrap{
+  display:flex; justify-content:center;
+  padding: 0 20px 24px;
+  transform: translateY(20px); /* float above black */
+}
+.welcome-card{
+  background:#fff; color:#222;
+  max-width: 820px; width:100%;
+  border-radius: 8px;
+  box-shadow: 0 18px 40px rgba(0,0,0,.35);
+  padding: 28px 26px;
+  text-align: left;
+}
+.welcome-title{
+  margin:0 0 8px 0;
+  font-weight: 500;
+  font-size: 28px;
+  letter-spacing:.02em;
+}
+.welcome-sub{
+  margin:0 0 18px 0;
+  font-size: 20px;
+  color:#666;
+}
+.request-btn{
+  appearance:none; border:0; cursor:pointer;
+  background:#000; color:#fff; text-transform:uppercase;
+  letter-spacing:.22em; font-weight:700; font-size:12px;
+  padding:12px 18px; border-radius:2px;
+}
+.request-btn:hover{ opacity:.9; }
+
+/* Mobile tweaks */
+@media (max-width:640px){
+  .hero{ min-height: 56vh; }
+  .hero-overlay{ min-height: 44vh; padding: 10px; }
+  .unit-tag{ font-size:12px; opacity:.85; }
+  .welcome-wrap{ padding: 0 12px 18px; transform: translateY(14px); }
+  .welcome-card{ border-radius:10px; padding:18px 16px; }
+  .welcome-title{ font-size:22px; }
+  .welcome-sub{ font-size:16px; }
+}
+
+/* keep container padding so hero card doesn't collide with bottom nav */
+.container{ padding-bottom: 140px; }
 
 
 /* narrow phones */
