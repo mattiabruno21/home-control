@@ -3,53 +3,51 @@
   --panel: #171717;
   --panel-hover: #2a2a2a;
   --text: #fff;
-  --muted: #aaa;
+  --muted: #9a9a9a;
+  --nav-bg: #232323;
+  --nav-muted: #b0b0b0;
+  --underline: #ffffff;
 }
 
 * { box-sizing: border-box; }
+html, body { height: 100%; scroll-behavior: smooth; }
 body {
   margin: 0;
   background: var(--bg);
   color: var(--text);
-  font-family: 'Helvetica Neue', Arial, sans-serif;
+  font-family: "Neue Helvetica", Helvetica, Arial, sans-serif;
 }
 
+/* HEADER */
 .topbar {
   position: sticky;
   top: 0;
-  background: rgba(0, 0, 0, 0.6);
+  background: rgba(0,0,0,.6);
   border-bottom: 1px solid #111;
   padding: 12px 20px;
   display: flex;
   align-items: center;
 }
-
 .brand {
   display: flex;
   align-items: center;
-  gap: 10px;
+}
+.logo { height: 36px; width: auto; display: block; filter: none; opacity: .95; }
+
+/* center logo on mobile, left on tablet/desktop */
+@media (max-width: 640px) {
+  .topbar { justify-content: center; }
+}
+@media (min-width: 641px) {
+  .topbar { justify-content: flex-start; }
 }
 
-.logo {
-  height: 34px;
-  width: auto;
-  display: block;
-  /* remove the invert that can hide it on dark bg */
-  filter: none;
-  opacity: 0.95;
-}
-
-
-.brand-name {
-  letter-spacing: .2em;
-  font-weight: 600;
-  font-size: 14px;
-}
-
-.container { max-width: 860px; margin: 0 auto; padding: 24px 20px; }
-.section { margin: 20px 0; }
+/* LAYOUT */
+.container { max-width: 960px; margin: 0 auto; padding: 24px 20px 120px; }
+.section { margin: 22px 0; }
 .label { font-size: 12px; letter-spacing: .25em; color: var(--muted); margin: 0 0 12px 2px; }
 
+/* CARDS */
 .grid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
@@ -64,11 +62,62 @@ body {
   letter-spacing: .08em;
   font-size: 13px;
   cursor: pointer;
-  transition: background 0.3s, transform 0.2s;
+  transition: background .3s, transform .2s;
 }
 .card:hover { background: var(--panel-hover); transform: translateY(-2px); }
 .card img { width: 28px; height: 28px; filter: invert(1); opacity: .9; }
 .card-wide { grid-column: span 2; padding: 34px 12px; font-size: 14px; }
-
 button.card { border: none; color: inherit; }
 .hint { font-size: 11px; color: var(--muted); margin-top: 8px; }
+
+/* 3 cols on wide screens */
+@media (min-width: 900px){
+  .grid { grid-template-columns: repeat(3, 1fr); }
+  .card-wide { grid-column: span 3; }
+}
+
+/* FLOATING BOTTOM NAV (hidden on small phones if you want? we keep visible) */
+.bottom-nav {
+  position: fixed;
+  left: 16px; right: 16px; bottom: 16px;
+  background: var(--nav-bg);
+  border-radius: 10px;
+  padding: 10px 14px;
+  display: flex;
+  gap: 24px;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 8px 24px rgba(0,0,0,.35);
+  border: 1px solid #2b2b2b;
+  z-index: 50;
+}
+
+.nav-link {
+  appearance: none;
+  background: transparent;
+  border: 0;
+  padding: 8px 10px 12px;
+  color: var(--nav-muted);
+  text-transform: uppercase;
+  letter-spacing: .18em;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  position: relative;
+  transition: color .2s;
+}
+.nav-link:hover { color: #e6e6e6; }
+.nav-link.active { color: #ffffff; }
+.nav-link.active::after {
+  content: "";
+  position: absolute;
+  left: 10px; right: 10px; bottom: 6px;
+  height: 3px; border-radius: 2px;
+  background: var(--underline);
+}
+
+/* on very narrow phones, shrink spacing */
+@media (max-width: 360px){
+  .bottom-nav { left: 10px; right: 10px; bottom: 10px; padding: 8px 10px; gap: 14px; }
+  .nav-link { font-size: 11px; letter-spacing: .16em; padding-bottom: 10px; }
+}
