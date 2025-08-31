@@ -31,13 +31,14 @@ body {
 }
 
 .logo {
-  height: 18px;        /* small logo */
+  height: 18px;
   width: auto;
   display: block;
-  /* If your SVG is already light, you can remove the filter below */
-  filter: invert(1) brightness(1.4);
-  opacity: 0.9;
+  /* remove the invert that can hide it on dark bg */
+  filter: none;
+  opacity: 0.95;
 }
+
 
 .brand-name {
   letter-spacing: .2em;
