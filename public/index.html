@@ -4,53 +4,53 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Home Control</title>
-  <link rel="stylesheet" href="./assets/css/styles.css" />
+  <link rel="stylesheet" href="/assets/css/styles.css" />
 </head>
 <body>
-  <header class="topbar">
+  <!-- HEADER -->
+  <header class="topbar" id="home">
     <div class="brand">
       <img class="logo" src="/assets/icons/fourseasons.svg" alt="Four Seasons Logo" />
-      <span class="brand-name">YOUR RESIDENCE</span>
     </div>
   </header>
 
   <main class="container">
-    <!-- Amenity (Room Service) -->
-    <section class="section">
+    <!-- AMENITIES -->
+    <section class="section" id="amenities">
       <h2 class="label">AMENITIES</h2>
       <div class="grid">
         <a class="card card-wide" href="#" id="roomService">
-          <img src="./assets/icons/roomservice.svg" alt="Room Service" />
+          <img src="/assets/icons/roomservice.svg" alt="Room Service" />
           <span>Room Service</span>
         </a>
       </div>
     </section>
 
-    <!-- Rooms -->
-    <section class="section">
+    <!-- ROOMS -->
+    <section class="section" id="rooms">
       <h2 class="label">ROOMS</h2>
       <div class="grid">
-        <a class="card" href="./rooms/living-room/index.html">
-          <img src="./assets/icons/livingroom.svg" alt="Living Room" />
+        <a class="card" href="/rooms/living-room/index.html">
+          <img src="/assets/icons/livingroom.svg" alt="Living Room" />
           <span>Living Room</span>
         </a>
-        <a class="card" href="./rooms/bedroom/index.html">
-          <img src="./assets/icons/bedroom.svg" alt="Bedroom" />
+        <a class="card" href="/rooms/bedroom/index.html">
+          <img src="/assets/icons/bedroom.svg" alt="Bedroom" />
           <span>Bedroom</span>
         </a>
-        <a class="card" href="./rooms/kitchen/index.html">
-          <img src="./assets/icons/kitchen.svg" alt="Kitchen" />
+        <a class="card" href="/rooms/kitchen/index.html">
+          <img src="/assets/icons/kitchen.svg" alt="Kitchen" />
           <span>Kitchen</span>
         </a>
-        <a class="card" href="./rooms/bathroom/index.html">
-          <img src="./assets/icons/bathroom.svg" alt="Bathroom" />
+        <a class="card" href="/rooms/bathroom/index.html">
+          <img src="/assets/icons/bathroom.svg" alt="Bathroom" />
           <span>Bathroom</span>
         </a>
       </div>
     </section>
 
-    <!-- Scenes -->
-    <section class="section">
+    <!-- SCENES -->
+    <section class="section" id="scenes">
       <h2 class="label">SCENES</h2>
       <div class="grid">
         <button class="card scene" disabled>Movie Night</button>
@@ -62,6 +62,13 @@
     </section>
   </main>
 
-  <script src="./assets/js/app.js"></script>
+  <!-- FLOATING BOTTOM MENU (desktop & tablet) -->
+  <nav class="bottom-nav" aria-label="Section navigation">
+    <button class="nav-link active" data-target="home">Home</button>
+    <button class="nav-link" data-target="amenities">Amenities</button>
+    <button class="nav-link" data-target="scenes">Scenes</button>
+  </nav>
+
+  <script src="/assets/js/app.js"></script>
 </body>
 </html>
