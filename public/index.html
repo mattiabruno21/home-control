@@ -1,1 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Home Control</title>
+  <link rel="stylesheet" href="./assets/css/styles.css" />
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand">YOUR RESIDENCE</div>
+  </header>
+
+  <main class="container">
+    <!-- Amenity (Room Service) -->
+    <section class="section">
+      <h2 class="label">AMENITIES</h2>
+      <div class="grid">
+        <a class="card card-wide" href="#" id="roomService">
+          <img src="./assets/icons/roomservice.svg" alt="Room Service" />
+          <span>Room Service</span>
+        </a>
+      </div>
+    </section>
+
+    <!-- Rooms -->
+    <section class="section">
+      <h2 class="label">ROOMS</h2>
+      <div class="grid">
+        <a class="card" href="./rooms/living-room/index.html">
+          <img src="./assets/icons/livingroom.svg" alt="Living Room" />
+          <span>Living Room</span>
+        </a>
+        <a class="card" href="./rooms/bedroom/index.html">
+          <img src="./assets/icons/bedroom.svg" alt="Bedroom" />
+          <span>Bedroom</span>
+        </a>
+        <a class="card" href="./rooms/kitchen/index.html">
+          <img src="./assets/icons/kitchen.svg" alt="Kitchen" />
+          <span>Kitchen</span>
+        </a>
+        <a class="card" href="./rooms/bathroom/index.html">
+          <img src="./assets/icons/bathroom.svg" alt="Bathroom" />
+          <span>Bathroom</span>
+        </a>
+      </div>
+    </section>
+
+    <!-- Scenes -->
+    <section class="section">
+      <h2 class="label">SCENES</h2>
+      <div class="grid">
+        <button class="card scene" disabled>Movie Night</button>
+        <button class="card scene" disabled>Morning</button>
+        <button class="card scene" disabled>Relax</button>
+        <button class="card scene" disabled>Party</button>
+      </div>
+      <p class="hint">Scenes will be enabled later when APIs are added.</p>
+    </section>
+  </main>
+
+  <script src="./assets/js/app.js"></script>
+</body>
+</html>
 
