@@ -19,9 +19,27 @@ body {
   top: 0;
   background: rgba(0, 0, 0, 0.6);
   border-bottom: 1px solid #111;
-  padding: 16px 20px;
+  padding: 12px 20px;
+  display: flex;
+  align-items: center;
 }
+
 .brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.logo {
+  height: 18px;        /* small logo */
+  width: auto;
+  display: block;
+  /* If your SVG is already light, you can remove the filter below */
+  filter: invert(1) brightness(1.4);
+  opacity: 0.9;
+}
+
+.brand-name {
   letter-spacing: .2em;
   font-weight: 600;
   font-size: 14px;
@@ -53,4 +71,3 @@ body {
 
 button.card { border: none; color: inherit; }
 .hint { font-size: 11px; color: var(--muted); margin-top: 8px; }
-
