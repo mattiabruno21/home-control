@@ -62,11 +62,24 @@
     </section>
   </main>
 
-  <!-- FLOATING BOTTOM MENU (desktop & tablet) -->
+
+  <!-- FLOATING BOTTOM MENU -->
   <nav class="bottom-nav" aria-label="Section navigation">
-    <button class="nav-link active" data-target="home">Home</button>
-    <button class="nav-link" data-target="amenities">Amenities</button>
-    <button class="nav-link" data-target="scenes">Scenes</button>
+    <div class="nav-left">
+      <button class="nav-link active" data-target="home">Home</button>
+      <button class="nav-link" data-target="amenities">Amenities</button>
+      <button class="nav-link" data-target="scenes">Scenes</button>
+    </div>
+
+    <div class="nav-right">
+      <!-- add these SVGs in /assets/icons/chat.svg and /assets/icons/settings.svg -->
+      <button class="icon-btn" aria-label="Chat">
+        <img src="/assets/icons/chat.svg" alt="" />
+      </button>
+      <button class="icon-btn" aria-label="Settings">
+        <img src="/assets/icons/settings.svg" alt="" />
+      </button>
+    </div>
   </nav>
 
   <script src="/assets/js/app.js"></script>
