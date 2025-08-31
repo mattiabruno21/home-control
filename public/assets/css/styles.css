@@ -139,7 +139,8 @@ button.card { border: none; color: inherit; }
   opacity: .85;
 }
 .icon-btn:hover { background: rgba(255,255,255,.06); opacity: 1; }
-.icon-btn img { width: 18px; height: 18px; filter: invert(1); display: block; }
+.icon-btn img { width: 18px; height: 18px; display: block; }
+
 
 /* narrow phones */
 @media (max-width: 360px){
