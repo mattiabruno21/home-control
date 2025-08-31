@@ -11,6 +11,15 @@ document.getElementById('roomService')?.addEventListener('click', (e) => {
     if (Date.now() - t < 1200) window.open(webLink, '_blank');
   }, 500);
 });
+// "Make a request" -> scroll to Amenities
+document.querySelector('.request-btn')?.addEventListener('click', (e) => {
+  e.preventDefault();
+  const amenities = document.getElementById('amenities');
+  if (!amenities) return;
+  const headerH = document.querySelector('.topbar')?.offsetHeight ?? 0;
+  const y = amenities.getBoundingClientRect().top + window.scrollY - (headerH + 6);
+  window.scrollTo({ top: y, behavior: 'smooth' });
+});
 
 // ===================== Floating nav: smooth-scroll + active state =====================
 const links = document.querySelectorAll('.nav-link');
