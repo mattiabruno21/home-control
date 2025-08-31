@@ -137,9 +137,13 @@ button.card { border: none; color: inherit; }
   cursor: pointer;
   transition: background .2s, opacity .2s;
   opacity: .85;
+  color: #fff;
 }
 .icon-btn:hover { background: rgba(255,255,255,.06); opacity: 1; }
 .icon-btn img { width: 18px; height: 18px; display: block; }
+.icon { width: 18px; height: 18px; display: block; }
+/* optional hard force */
+.icon * { stroke: currentColor; }
 
 
 /* narrow phones */
