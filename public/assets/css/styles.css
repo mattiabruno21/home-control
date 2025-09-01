@@ -27,6 +27,7 @@ body {
   padding: 12px 20px;
   display: flex;
   align-items: center;
+  z-index: 1000;
 }
 .brand {
   display: flex;
@@ -35,11 +36,24 @@ body {
 .logo { height: 36px; width: auto; display: block; filter: none; opacity: .95; }
 
 /* center logo on mobile, left on tablet/desktop */
-@media (max-width: 640px) {
-  .topbar { justify-content: center; }
+/* ===== Responsive tweaks ===== */
+@media (max-width: 900px){
+  .hero{ min-height: 56vh; }
+  .unit-tag{ transform: translateY(calc(56vh - 150px)); font-size:14px; }
 }
-@media (min-width: 641px) {
-  .topbar { justify-content: flex-start; }
+@media (max-width: 640px){
+  .hero{ min-height: 54vh; }
+  .hero-grad-top{ height: 42%; }
+  .hero-grad-bottom{ height: 58%; }
+  .unit-tag{
+    transform: translateY(calc(54vh - 140px));
+    font-size: 13px;
+    opacity: .9;
+  }
+  .welcome-wrap{ padding: 0 12px 18px; transform: translateY(14px); }
+  .welcome-card{ border-radius:10px; padding:18px 16px; }
+  .welcome-title{ font-size:22px; }
+  .welcome-sub{ font-size:16px; }
 }
 
 /* LAYOUT */
@@ -147,10 +161,17 @@ button.card { border: none; color: inherit; }
 /* === HERO === */
 .hero{
   position: relative;
-  min-height: 52vh;            /* desktop height */
-  background: #000 url('/assets/img/hero.jpg') center/cover no-repeat;
+  isolation: isolate;                /* keeps z-index layers clean */
+  /* controls total hero height; image will crop via object-fit */
+  min-height: 60vh;                  /* desktop height */
   display: grid;
   grid-template-rows: 1fr auto;
+}
+/* image element for perfect cover-crop and centering */
+.hero-img{
+  position: absolute; inset: 0;
+  background: url('/assets/img/hero.jpg') center center / cover no-repeat;
+  z-index: 0;
 }
 
 /* subtle top overlay + unit tag */
@@ -161,35 +182,53 @@ button.card { border: none; color: inherit; }
   display:flex; align-items:flex-end; justify-content:flex-end;
   padding: 16px;
 }
+/* unit text centered just above the white card */
 .unit-tag{
-  color:#fff; font-style: italic; font-size:14px; opacity:.9;
+  position: relative;
+  z-index: 2;
+  margin: 0 auto;
+  transform: translateY(calc(60vh - 160px)); /* positions near bottom; tuned below for mobile */
+  width: max-content;
+  padding: 6px 10px;
+  color: #fff;
+  font-style: italic;
+  font-size: 15px;
+  letter-spacing: .02em;
+  opacity: .95;
 }
 
-/* white welcome card */
+
+/* gradients (top soft vignette, bottom fade to page black) */
+.hero-grad{ position: absolute; left:0; right:0; z-index: 1; pointer-events:none; }
+.hero-grad-top{
+  top:0; height: 45%;
+  background: linear-gradient(to bottom, rgba(0,0,0,.25), rgba(0,0,0,0));
+}
+.hero-grad-bottom{
+  bottom:0; height: 55%;
+  /* soft -> solid black matching page bg */
+  background: linear-gradient(to bottom, rgba(0,0,0,0), rgba(0,0,0,.5) 45%, #000 100%);
+}
+
+
 .welcome-wrap{
+  position: relative;
+  z-index: 3;                        /* above gradients & image */
   display:flex; justify-content:center;
   padding: 0 20px 24px;
-  transform: translateY(20px); /* float above black */
+  transform: translateY(24px);
 }
 .welcome-card{
   background:#fff; color:#222;
-  max-width: 820px; width:100%;
-  border-radius: 8px;
+  max-width: 840px; width:100%;
+  border-radius: 10px;
   box-shadow: 0 18px 40px rgba(0,0,0,.35);
   padding: 28px 26px;
   text-align: left;
 }
-.welcome-title{
-  margin:0 0 8px 0;
-  font-weight: 500;
-  font-size: 28px;
-  letter-spacing:.02em;
-}
-.welcome-sub{
-  margin:0 0 18px 0;
-  font-size: 20px;
-  color:#666;
-}
+.welcome-title{ margin:0 0 8px; font-weight:500; font-size:28px; }
+.welcome-sub{ margin:0 0 18px; font-size:20px; color:#666; }
+
 .request-btn{
   appearance:none; border:0; cursor:pointer;
   background:#000; color:#fff; text-transform:uppercase;
@@ -209,7 +248,7 @@ button.card { border: none; color: inherit; }
   .welcome-sub{ font-size:16px; }
 }
 
-/* keep container padding so hero card doesn't collide with bottom nav */
+/* container padding so card doesn't collide with bottom nav */
 .container{ padding-bottom: 140px; }
 
 
