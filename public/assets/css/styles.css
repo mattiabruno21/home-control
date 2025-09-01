@@ -99,31 +99,53 @@ body {
 
 /* FLOATING BOTTOM NAV */
 .bottom-nav {
-  position: fixed; left: 16px; right: 16px; bottom: 16px;
+  position: fixed;
+  left: 16px; right: 16px; bottom: 16px;
   background: var(--nav-bg);
-  border-radius: 10px; padding: 10px 14px;
+  border-radius: 10px;
+  padding: clamp(6px, 2.5vw, 10px) clamp(8px, 3vw, 14px);
   display: flex; align-items: center; justify-content: space-between;
   box-shadow: 0 8px 24px rgba(0,0,0,.35);
   border: 1px solid #2b2b2b; z-index: 50;
+  overflow: hidden;            /* keep content inside the rounded bar */
 }
-.nav-left { display: flex; gap: 24px; align-items: center; }
-.nav-right { display: flex; gap: 12px; align-items: center; }
+.nav-left {
+  display: flex; align-items: center;
+  gap: clamp(10px, 4vw, 24px);
+  min-width: 0;                /* allow shrinking */
+  flex: 1 1 auto;              /* take remaining space */
+  overflow-x: auto;            /* if it’s still tight, scroll horizontally */
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+}
+.nav-left::-webkit-scrollbar { display: none; }
+.nav-right { display: flex; gap: clamp(8px, 2.5vw, 12px); align-items: center; flex: 0 0 auto; }
+
 .nav-link {
   appearance: none; background: transparent; border: 0;
-  padding: 8px 10px 12px; color: var(--nav-muted);
-  text-transform: uppercase; letter-spacing: .18em;
-  font-size: 12px; font-weight: 600; cursor: pointer; position: relative;
+  padding: 6px 8px 10px;
+  color: var(--nav-muted);
+  text-transform: uppercase;
+  letter-spacing: clamp(.12em, 0.9vw, .18em);
+  font-size: clamp(10px, 2.8vw, 12px);
+  font-weight: 600; cursor: pointer; position: relative;
+  white-space: nowrap;         /* keep labels on one line */
   transition: color .2s;
 }
 .nav-link:hover { color: #e6e6e6; }
 .nav-link.active { color: #ffffff; }
 .nav-link.active::after {
-  content: ""; position: absolute; left: 10px; right: 10px; bottom: 6px;
+  content: ""; position: absolute; left: 8px; right: 8px; bottom: 6px;
   height: 3px; border-radius: 2px; background: var(--underline);
 }
-.icon-btn { appearance:none; background:transparent; border:0; padding:6px; border-radius:8px; cursor:pointer; transition:background .2s, opacity .2s; opacity:.85; color:#fff; }
+
+.icon-btn { appearance:none; background:transparent; border:0;
+  padding: clamp(4px, 1.2vw, 6px); border-radius:8px; cursor:pointer;
+  transition: background .2s, opacity .2s; opacity:.9; color:#fff;
+}
 .icon-btn:hover { background: rgba(255,255,255,.06); opacity:1; }
-.icon { width:18px; height:18px; display:block; }
+
+.icon { width: clamp(16px, 4.5vw, 18px); height: clamp(16px, 4.5vw, 18px); display:block; }
 .icon * { stroke: currentColor; }
 
 /* === HERO === */
