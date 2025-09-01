@@ -301,6 +301,27 @@ button.card { border: none; color: inherit; }
 @media (max-width: 380px){
   .container{ --container-pad: 24px; }
 }
+/* remove default link styles inside cards */
+.card, 
+.card:link, 
+.card:visited {
+  color: inherit;                /* inherit white text */
+  text-decoration: none;         /* remove underline */
+}
+
+/* optional: keep hover background effect only */
+.card:hover {
+  background: var(--panel-hover);
+  transform: translateY(-2px);
+}
+.card span {
+  display: block;
+  margin-top: 6px;
+  text-transform: uppercase;
+  letter-spacing: .08em;
+  font-size: 13px;
+  color: #fff;                  /* force white text */
+}
 
 
 /* narrow phones */
