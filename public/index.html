@@ -14,34 +14,28 @@
     </div>
   </header>
 
-<!-- HERO -->
-<section class="hero" id="hero">
-  <div class="hero-img" role="img" aria-label="Apartment view"></div>
+  <!-- HERO -->
+  <section class="hero" id="hero">
+    <div class="hero-img" role="img" aria-label="Apartment view"></div>
+    <div class="hero-grad hero-grad-top"></div>
+    <div class="hero-grad hero-grad-bottom"></div>
+    <div class="unit-tag">Biella, Italy</div>
 
-  <!-- gradient overlays -->
-  <div class="hero-grad hero-grad-top"></div>
-  <div class="hero-grad hero-grad-bottom"></div>
-
-  <!-- centered unit tag just above the white card -->
-  <div class="unit-tag">Biella, Italy</div>
-
-  <!-- white welcome card -->
-  <div class="welcome-wrap">
-    <div class="welcome-card">
-      <h1 class="welcome-title">Welcome Mattia,</h1>
-      <p class="welcome-sub">We are here for anything you need, anytime.</p>
-      <button class="request-btn" data-target="amenities">Make a request</button>
+    <div class="welcome-wrap">
+      <div class="welcome-card">
+        <h1 class="welcome-title">Welcome Mattia,</h1>
+        <p class="welcome-sub">We are here for anything you need, anytime.</p>
+        <button class="request-btn" data-target="amenities">Make a request</button>
+      </div>
     </div>
-  </div>
-</section>
+  </section>
 
-
-  
   <main class="container">
     <!-- AMENITIES -->
     <section class="section" id="amenities">
       <h2 class="label">AMENITIES</h2>
-      <div class="grid">
+      <!-- scroller = turns horizontal on tablet/desktop -->
+      <div class="grid scroller">
         <a class="card card-wide" href="#" id="roomService" aria-label="Room Service">
           <!-- Fork + Knife (FS style) -->
           <svg class="icon" viewBox="0 0 24 24" fill="none"
@@ -59,7 +53,7 @@
     <!-- ROOMS -->
     <section class="section" id="rooms">
       <h2 class="label">ROOMS</h2>
-      <div class="grid">
+      <div class="grid scroller">
         <a class="card" href="/rooms/living-room/index.html" aria-label="Living Room">
           <!-- Sofa -->
           <svg class="icon" viewBox="0 0 24 24" fill="none"
@@ -117,9 +111,8 @@
     <!-- SCENES -->
     <section class="section" id="scenes">
       <h2 class="label">SCENES</h2>
-      <div class="grid">
+      <div class="grid scroller">
         <button class="card scene" disabled aria-label="Movie Night">
-          <!-- Play / clapper motif -->
           <svg class="icon" viewBox="0 0 24 24" fill="none"
                stroke="currentColor" stroke-width="1.5"
                stroke-linecap="round" stroke-linejoin="round"
@@ -132,7 +125,6 @@
         </button>
 
         <button class="card scene" disabled aria-label="Morning">
-          <!-- Sun -->
           <svg class="icon" viewBox="0 0 24 24" fill="none"
                stroke="currentColor" stroke-width="1.5"
                stroke-linecap="round" stroke-linejoin="round"
@@ -144,7 +136,6 @@
         </button>
 
         <button class="card scene" disabled aria-label="Relax">
-          <!-- Leaf -->
           <svg class="icon" viewBox="0 0 24 24" fill="none"
                stroke="currentColor" stroke-width="1.5"
                stroke-linecap="round" stroke-linejoin="round"
@@ -156,7 +147,6 @@
         </button>
 
         <button class="card scene" disabled aria-label="Party">
-          <!-- Sparkles -->
           <svg class="icon" viewBox="0 0 24 24" fill="none"
                stroke="currentColor" stroke-width="1.5"
                stroke-linecap="round" stroke-linejoin="round"
