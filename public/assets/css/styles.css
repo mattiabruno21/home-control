@@ -250,6 +250,55 @@ button.card { border: none; color: inherit; }
 
 /* container padding so card doesn't collide with bottom nav */
 .container{ padding-bottom: 140px; }
+/* ===== GRID SIZE (uniform height for all cards) ===== */
+.container{
+  /* max content width (already in your CSS, keep if present) */
+  --container-max: 960px;
+  /* horizontal padding on .container (left+right total) */
+  --container-pad: 40px;
+  /* grid gap */
+  --gap: 14px;
+}
+
+/* default: 2 columns on small screens */
+.grid{
+  --cols: 2;
+  display: grid;
+  grid-template-columns: repeat(var(--cols), 1fr);
+  gap: var(--gap);
+}
+
+/* 3 columns on wider screens */
+@media (min-width: 900px){
+  .grid{ --cols: 3; grid-template-columns: repeat(var(--cols), 1fr); }
+}
+
+/* card height = column width, so squares. We compute column width from viewport/container */
+:root{
+  --viewport-w: 100vw;
+}
+.grid .card{
+  /* card width per column */
+  --col-w: calc((min(var(--container-max), var(--viewport-w)) - var(--container-pad) - (var(--cols) - 1) * var(--gap)) / var(--cols));
+  height: var(--col-w);              /* ← square height for all single-column cards */
+  display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 10px;
+  padding: 0 12px;                   /* internal padding without changing height */
+}
+
+/* The wide card spans two columns but keeps the SAME height as a single card */
+.card-wide{
+  grid-column: span 2;
+  height: var(--col-w);              /* ← same height as others */
+}
+
+/* Make sure icons & labels fit inside vertically centered area */
+.card .icon{ width: 28px; height: 28px; color: #fff; display: block; }
+.card span{ text-transform: uppercase; letter-spacing: .08em; font-size: 13px; }
+
+/* Minor tweak: on very small screens reduce the computed padding */
+@media (max-width: 380px){
+  .container{ --container-pad: 24px; }
+}
 
 
 /* narrow phones */
