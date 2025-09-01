@@ -7,6 +7,10 @@
   --nav-bg: #232323;
   --nav-muted: #b0b0b0;
   --underline: #ffffff;
+
+  /* Carousel sizing */
+  --card-size: clamp(140px, 22vw, 220px);
+  --gap: 14px;
 }
 
 * { box-sizing: border-box; }
@@ -17,316 +21,142 @@ body {
   color: var(--text);
   font-family: "Neue Helvetica", Helvetica, Arial, sans-serif;
 }
-.card svg.icon,
-.icon-btn svg.icon { color: #fff; }
+
+.card svg.icon, .icon-btn svg.icon { color: #fff; }
 
 /* HEADER */
 .topbar {
-  position: sticky;
-  top: 0;
+  position: sticky; top: 0;
   background: rgba(0,0,0,.6);
   border-bottom: 1px solid #111;
   padding: 12px 20px;
-  display: flex;
-  align-items: center;
+  display: flex; align-items: center;
   z-index: 1000;
 }
-.brand {
-  display: flex;
-  align-items: center;
-}
-.logo { height: 36px; width: auto; display: block; filter: none; opacity: .95; }
-
-/* center logo on mobile, left on tablet/desktop */
-/* ===== Responsive tweaks ===== */
-@media (max-width: 900px){
-  .hero{ min-height: 56vh; }
-  .unit-tag{ transform: translateY(calc(56vh - 150px)); font-size:14px; }
-}
-@media (max-width: 640px){
-  .hero{ min-height: 54vh; }
-  .hero-grad-top{ height: 42%; }
-  .hero-grad-bottom{ height: 58%; }
-  .unit-tag{
-    transform: translateY(calc(54vh - 140px));
-    font-size: 13px;
-    opacity: .9;
-  }
-  .welcome-wrap{ padding: 0 12px 18px; transform: translateY(14px); }
-  .welcome-card{ border-radius:10px; padding:18px 16px; }
-  .welcome-title{ font-size:22px; }
-  .welcome-sub{ font-size:16px; }
-}
+.brand { display: flex; align-items: center; }
+.logo { height: 36px; width: auto; display: block; opacity: .95; }
 
 /* LAYOUT */
 .container { max-width: 960px; margin: 0 auto; padding: 24px 20px 120px; }
 .section { margin: 22px 0; }
 .label { font-size: 12px; letter-spacing: .25em; color: var(--muted); margin: 0 0 12px 2px; }
 
-/* CARDS */
+/* ===== GRID / CARDS (mobile default: 2-col grid) ===== */
 .grid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  gap: 14px;
+  gap: var(--gap);
 }
 .card {
   background: var(--panel);
   border-radius: 12px;
-  padding: 26px 12px;
   text-align: center;
   text-transform: uppercase;
   letter-spacing: .08em;
   font-size: 13px;
   cursor: pointer;
   transition: background .3s, transform .2s;
+  height: 42vw;                   /* squares on mobile (2 cols -> each ~50vw) */
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: center; gap: 10px;
+  color: inherit; text-decoration: none;   /* reset link styles */
 }
 .card:hover { background: var(--panel-hover); transform: translateY(-2px); }
-.card img { width: 28px; height: 28px; filter: invert(1); opacity: .9; }
-.card-wide { grid-column: span 2; padding: 34px 12px; font-size: 14px; }
-button.card { border: none; color: inherit; }
-.hint { font-size: 11px; color: var(--muted); margin-top: 8px; }
+.card .icon { width: 28px; height: 28px; display: block; }
+.card span { display:block; margin-top:6px; font-size:13px; color:#fff; }
+.card-wide { grid-column: span 2; height: 42vw; }   /* same height as others */
 
-/* 3 cols on wide screens */
-@media (min-width: 900px){
-  .grid { grid-template-columns: repeat(3, 1fr); }
-  .card-wide { grid-column: span 3; }
+/* ===== DESKTOP/TABLET: horizontal carousels ===== */
+@media (min-width: 900px) {
+  /* turn each .grid.scroller into a horizontal row */
+  .grid.scroller {
+    display: flex;
+    gap: var(--gap);
+    overflow-x: auto;
+    overflow-y: hidden;
+    padding-bottom: 6px;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+    mask-image: linear-gradient(to right, transparent 0, rgba(0,0,0,.8) 24px, #000 48px, #000 calc(100% - 48px), rgba(0,0,0,.8) calc(100% - 24px), transparent 100%);
+  }
+  .grid.scroller::-webkit-scrollbar { height: 8px; }
+  .grid.scroller::-webkit-scrollbar-thumb { background: #2b2b2b; border-radius: 999px; }
+  .grid.scroller { scrollbar-width: thin; scrollbar-color: #2b2b2b transparent; }
+
+  /* Square tiles with fixed basis; snap each tile */
+  .grid.scroller .card {
+    flex: 0 0 var(--card-size);
+    height: var(--card-size);
+    scroll-snap-align: start;
+  }
+
+  /* Room Service: two tiles wide but same height */
+  .grid.scroller .card-wide {
+    flex: 0 0 calc(var(--card-size) * 2 + var(--gap));
+    height: var(--card-size);
+  }
 }
 
 /* FLOATING BOTTOM NAV */
 .bottom-nav {
-  position: fixed;
-  left: 16px; right: 16px; bottom: 16px;
+  position: fixed; left: 16px; right: 16px; bottom: 16px;
   background: var(--nav-bg);
-  border-radius: 10px;
-  padding: 10px 14px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;   /* ← left menu and right icons */
+  border-radius: 10px; padding: 10px 14px;
+  display: flex; align-items: center; justify-content: space-between;
   box-shadow: 0 8px 24px rgba(0,0,0,.35);
-  border: 1px solid #2b2b2b;
-  z-index: 50;
+  border: 1px solid #2b2b2b; z-index: 50;
 }
-
-.nav-left {
-  display: flex;
-  gap: 24px;
-  align-items: center;
-}
-
-.nav-right {
-  display: flex;
-  gap: 12px;
-  align-items: center;
-}
-
+.nav-left { display: flex; gap: 24px; align-items: center; }
+.nav-right { display: flex; gap: 12px; align-items: center; }
 .nav-link {
-  appearance: none;
-  background: transparent;
-  border: 0;
-  padding: 8px 10px 12px;
-  color: var(--nav-muted);
-  text-transform: uppercase;
-  letter-spacing: .18em;
-  font-size: 12px;
-  font-weight: 600;
-  cursor: pointer;
-  position: relative;
+  appearance: none; background: transparent; border: 0;
+  padding: 8px 10px 12px; color: var(--nav-muted);
+  text-transform: uppercase; letter-spacing: .18em;
+  font-size: 12px; font-weight: 600; cursor: pointer; position: relative;
   transition: color .2s;
 }
 .nav-link:hover { color: #e6e6e6; }
 .nav-link.active { color: #ffffff; }
 .nav-link.active::after {
-  content: "";
-  position: absolute;
-  left: 10px; right: 10px; bottom: 6px;
-  height: 3px; border-radius: 2px;
-  background: var(--underline);
+  content: ""; position: absolute; left: 10px; right: 10px; bottom: 6px;
+  height: 3px; border-radius: 2px; background: var(--underline);
 }
-
-/* icon buttons on the right */
-.icon-btn {
-  appearance: none;
-  background: transparent;
-  border: 0;
-  padding: 6px;
-  border-radius: 8px;
-  cursor: pointer;
-  transition: background .2s, opacity .2s;
-  opacity: .85;
-  color: #fff;
-}
-.icon-btn:hover { background: rgba(255,255,255,.06); opacity: 1; }
-.icon-btn img { width: 18px; height: 18px; display: block; }
-.icon { width: 18px; height: 18px; display: block; }
-/* optional hard force */
+.icon-btn { appearance:none; background:transparent; border:0; padding:6px; border-radius:8px; cursor:pointer; transition:background .2s, opacity .2s; opacity:.85; color:#fff; }
+.icon-btn:hover { background: rgba(255,255,255,.06); opacity:1; }
+.icon { width:18px; height:18px; display:block; }
 .icon * { stroke: currentColor; }
+
 /* === HERO === */
-.hero{
-  position: relative;
-  isolation: isolate;                /* keeps z-index layers clean */
-  /* controls total hero height; image will crop via object-fit */
-  min-height: 60vh;                  /* desktop height */
-  display: grid;
-  grid-template-rows: 1fr auto;
-}
-/* image element for perfect cover-crop and centering */
-.hero-img{
-  position: absolute; inset: 0;
-  background: url('/assets/img/hero.jpg') center center / cover no-repeat;
-  z-index: 0;
-}
-
-/* subtle top overlay + unit tag */
-.hero-overlay{
-  position: relative;
-  min-height: 40vh;
-  background: linear-gradient(to bottom, rgba(0,0,0,.25), rgba(0,0,0,.0) 60%, rgba(0,0,0,.45));
-  display:flex; align-items:flex-end; justify-content:flex-end;
-  padding: 16px;
-}
-/* unit text centered just above the white card */
-.unit-tag{
-  position: relative;
-  z-index: 2;
-  margin: 0 auto;
-  transform: translateY(calc(60vh - 160px)); /* positions near bottom; tuned below for mobile */
-  width: max-content;
-  padding: 6px 10px;
-  color: #fff;
-  font-style: italic;
-  font-size: 15px;
-  letter-spacing: .02em;
-  opacity: .95;
-}
-
-
-/* gradients (top soft vignette, bottom fade to page black) */
+.hero{ position: relative; isolation: isolate; min-height: 60vh; display: grid; grid-template-rows: 1fr auto; }
+.hero-img{ position: absolute; inset: 0; background: url('/assets/img/hero.jpg') center/cover no-repeat; z-index: 0; }
 .hero-grad{ position: absolute; left:0; right:0; z-index: 1; pointer-events:none; }
-.hero-grad-top{
-  top:0; height: 45%;
-  background: linear-gradient(to bottom, rgba(0,0,0,.25), rgba(0,0,0,0));
-}
-.hero-grad-bottom{
-  bottom:0; height: 55%;
-  /* soft -> solid black matching page bg */
-  background: linear-gradient(to bottom, rgba(0,0,0,0), rgba(0,0,0,.5) 45%, #000 100%);
-}
-
-
-.welcome-wrap{
-  position: relative;
-  z-index: 3;                        /* above gradients & image */
-  display:flex; justify-content:center;
-  padding: 0 20px 24px;
-  transform: translateY(24px);
-}
-.welcome-card{
-  background:#fff; color:#222;
-  max-width: 840px; width:100%;
-  border-radius: 10px;
-  box-shadow: 0 18px 40px rgba(0,0,0,.35);
-  padding: 28px 26px;
-  text-align: left;
-}
+.hero-grad-top{ top:0; height: 45%; background: linear-gradient(to bottom, rgba(0,0,0,.25), rgba(0,0,0,0)); }
+.hero-grad-bottom{ bottom:0; height: 55%; background: linear-gradient(to bottom, rgba(0,0,0,0), rgba(0,0,0,.5) 45%, #000 100%); }
+.unit-tag{ position: relative; z-index: 2; margin: 0 auto; transform: translateY(calc(60vh - 160px)); width:max-content; padding:6px 10px; color:#fff; font-style: italic; font-size:15px; letter-spacing:.02em; opacity:.95; }
+.welcome-wrap{ position: relative; z-index: 3; display:flex; justify-content:center; padding: 0 20px 24px; transform: translateY(24px); }
+.welcome-card{ background:#fff; color:#222; max-width: 840px; width:100%; border-radius: 10px; box-shadow: 0 18px 40px rgba(0,0,0,.35); padding: 28px 26px; text-align: left; }
 .welcome-title{ margin:0 0 8px; font-weight:500; font-size:28px; }
 .welcome-sub{ margin:0 0 18px; font-size:20px; color:#666; }
-
-.request-btn{
-  appearance:none; border:0; cursor:pointer;
-  background:#000; color:#fff; text-transform:uppercase;
-  letter-spacing:.22em; font-weight:700; font-size:12px;
-  padding:12px 18px; border-radius:2px;
-}
+.request-btn{ appearance:none; border:0; cursor:pointer; background:#000; color:#fff; text-transform:uppercase; letter-spacing:.22em; font-weight:700; font-size:12px; padding:12px 18px; border-radius:2px; }
 .request-btn:hover{ opacity:.9; }
 
 /* Mobile tweaks */
 @media (max-width:640px){
-  .hero{ min-height: 56vh; }
-  .hero-overlay{ min-height: 44vh; padding: 10px; }
-  .unit-tag{ font-size:12px; opacity:.85; }
+  .hero{ min-height: 54vh; }
+  .hero-grad-top{ height: 42%; }
+  .hero-grad-bottom{ height: 58%; }
+  .unit-tag{ transform: translateY(calc(54vh - 140px)); font-size:13px; opacity:.9; }
   .welcome-wrap{ padding: 0 12px 18px; transform: translateY(14px); }
   .welcome-card{ border-radius:10px; padding:18px 16px; }
   .welcome-title{ font-size:22px; }
   .welcome-sub{ font-size:16px; }
+
+  /* mobile: classic grid (already set); size cards as squares based on viewport */
+  .card, .card-wide { height: 42vw; }
 }
 
-/* container padding so card doesn't collide with bottom nav */
+/* container padding so card doesn't touch bottom nav */
 .container{ padding-bottom: 140px; }
-/* ===== GRID SIZE (uniform height for all cards) ===== */
-.container{
-  /* max content width (already in your CSS, keep if present) */
-  --container-max: 960px;
-  /* horizontal padding on .container (left+right total) */
-  --container-pad: 40px;
-  /* grid gap */
-  --gap: 14px;
-}
 
-/* default: 2 columns on small screens */
-.grid{
-  --cols: 2;
-  display: grid;
-  grid-template-columns: repeat(var(--cols), 1fr);
-  gap: var(--gap);
-}
-
-/* 3 columns on wider screens */
-@media (min-width: 900px){
-  .grid{ --cols: 3; grid-template-columns: repeat(var(--cols), 1fr); }
-}
-
-/* card height = column width, so squares. We compute column width from viewport/container */
-:root{
-  --viewport-w: 100vw;
-}
-.grid .card{
-  /* card width per column */
-  --col-w: calc((min(var(--container-max), var(--viewport-w)) - var(--container-pad) - (var(--cols) - 1) * var(--gap)) / var(--cols));
-  height: var(--col-w);              /* ← square height for all single-column cards */
-  display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 10px;
-  padding: 0 12px;                   /* internal padding without changing height */
-}
-
-/* The wide card spans two columns but keeps the SAME height as a single card */
-.card-wide{
-  grid-column: span 2;
-  height: var(--col-w);              /* ← same height as others */
-}
-
-/* Make sure icons & labels fit inside vertically centered area */
-.card .icon{ width: 28px; height: 28px; color: #fff; display: block; }
-.card span{ text-transform: uppercase; letter-spacing: .08em; font-size: 13px; }
-
-/* Minor tweak: on very small screens reduce the computed padding */
-@media (max-width: 380px){
-  .container{ --container-pad: 24px; }
-}
-/* remove default link styles inside cards */
-.card, 
-.card:link, 
-.card:visited {
-  color: inherit;                /* inherit white text */
-  text-decoration: none;         /* remove underline */
-}
-
-/* optional: keep hover background effect only */
-.card:hover {
-  background: var(--panel-hover);
-  transform: translateY(-2px);
-}
-.card span {
-  display: block;
-  margin-top: 6px;
-  text-transform: uppercase;
-  letter-spacing: .08em;
-  font-size: 13px;
-  color: #fff;                  /* force white text */
-}
-
-
-/* narrow phones */
-@media (max-width: 360px){
-  .bottom-nav { left: 10px; right: 10px; bottom: 10px; padding: 8px 10px; }
-  .nav-left { gap: 14px; }
-  .nav-link { font-size: 11px; letter-spacing: .16em; padding-bottom: 10px; }
-}
+/* Link reset inside cards */
+.card, .card:link, .card:visited { color: inherit; text-decoration: none; }
